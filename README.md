@@ -16,6 +16,16 @@ Unlike the popular `10up/action-wordpress-plugin-asset-update` GitHub action, th
 
 Leveraging PHP instead of bash scripting, this action caters to the preferences of many WordPress developers, offering a familiar and potentially more convenient workflow.
 
+## Configuration
+
+### Environment variables
+
+| Variable       | Explanation                |
+| -------------- | -------------------------- |
+| `SVN_USERNAME` | WordPress.org username.    |
+| `SVN_PASSWORD` | WordPress.org password.    |
+| `WP_SLUG`      | WordPress.org plugin slug. |
+
 ## Inspiration
 
 - https://github.com/marketplace/actions/wordpress-plugin-svn-deploy
@@ -24,5 +34,9 @@ Leveraging PHP instead of bash scripting, this action caters to the preferences 
   - https://github.com/10up/action-wordpress-plugin-asset-update
 - https://github.com/marketplace/actions/deploy-to-wordpress-org-svn-repository
   - https://github.com/richard-muvirimi/deploy-wordpress-plugin
+
+## Links
+
+- https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
 
 [![Pronamic - Work with us](https://github.com/pronamic/brand-resources/blob/main/banners/pronamic-work-with-us-leaderboard-728x90%404x.png)](https://www.pronamic.eu/contact/)
