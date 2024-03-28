@@ -39,6 +39,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    environment:
+      name: WordPress.org plugin directory
+      url: https://wordpress.org/plugins/pronamic-pay-with-mollie-for-contact-form-7/
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,9 +54,9 @@ jobs:
       - name: Deploy
         uses: pronamic/action-wordpress-plugin-readme-update@main
         env:
+          SVN_USERNAME: pronamic
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          WP_SLUG: pronamic-pay-with-mollie-for-woocommerce
+          WP_SLUG: pronamic-pay-with-mollie-for-contact-form-7
 ```
 
 ## Inspiration
