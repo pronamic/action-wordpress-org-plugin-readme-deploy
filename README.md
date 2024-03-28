@@ -4,15 +4,15 @@ With this GitHub action you can easily update your WordPress plugin `readme.txt`
 
 ## Introduction
 
-### Streamline Your WordPress Plugin Updates
+### Streamline your WordPress plugin updates
 
 This GitHub action simplifies updating your WordPress plugin's readme.txt file directly in the WordPress plugin directory.
 
-### Focus on What Matters
+### Focus on what matters
 
 Unlike the popular `10up/action-wordpress-plugin-asset-update` GitHub action, this action targets a specific need: keeping your `readme.txt` up-to-date. This streamlined approach avoids unnecessary complexity.
 
-### Built for WordPress Developers
+### Built for WordPress developers
 
 Leveraging PHP instead of bash scripting, this action caters to the preferences of many WordPress developers, offering a familiar and potentially more convenient workflow.
 
@@ -26,6 +26,35 @@ Leveraging PHP instead of bash scripting, this action caters to the preferences 
 | `SVN_PASSWORD` | WordPress.org password.    |
 | `WP_SLUG`      | WordPress.org plugin slug. |
 
+
+## Example
+
+```yml
+name: Deploy readme.txt to WordPress.org
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            readme.txt
+
+      - name: Deploy
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          WP_SLUG: pronamic-pay-with-mollie-for-woocommerce
+        run: php .github/scripts/deploy-readme-to-wordpress-org.php
+```
+
 ## Inspiration
 
 - https://github.com/marketplace/actions/wordpress-plugin-svn-deploy
@@ -38,5 +67,6 @@ Leveraging PHP instead of bash scripting, this action caters to the preferences 
 ## Links
 
 - https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
+- https://svnbook.red-bean.com/
 
 [![Pronamic - Work with us](https://github.com/pronamic/brand-resources/blob/main/banners/pronamic-work-with-us-leaderboard-728x90%404x.png)](https://www.pronamic.eu/contact/)
