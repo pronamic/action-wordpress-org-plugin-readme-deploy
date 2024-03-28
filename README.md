@@ -48,11 +48,11 @@ jobs:
             readme.txt
 
       - name: Deploy
+        uses: pronamic/action-wordpress-plugin-readme-update@main
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           WP_SLUG: pronamic-pay-with-mollie-for-woocommerce
-        run: php .github/scripts/deploy-readme-to-wordpress-org.php
 ```
 
 ## Inspiration
