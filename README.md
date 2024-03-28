@@ -66,7 +66,9 @@ jobs:
 
 ## Links
 
+- https://developer.wordpress.org/plugins/wordpress-org/how-your-readme-txt-works/
 - https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
 - https://svnbook.red-bean.com/
+- https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 
 [![Pronamic - Work with us](https://github.com/pronamic/brand-resources/blob/main/banners/pronamic-work-with-us-leaderboard-728x90%404x.png)](https://www.pronamic.eu/contact/)

@@ -1,0 +1,12 @@
+name: 'WordPress.org plugin `readme.txt` update'
+description: 'Deploy the `readme.txt` file to the WordPress plugin directory.'
+author: 'pronamic'
+branding:
+  icon: 'upload-cloud'
+  color: 'orange'
+runs:
+  using: 'composite'
+  steps:
+    - id: deploy
+      run: php ${{ github.action_path }}/deploy.php
+      shell: bash
