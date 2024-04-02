@@ -91,6 +91,10 @@ foreach ( $xml->target->entry as $entry ) {
 			passthru( "svn rm $path" );
 
 			break;
+		case 'modified';
+			// Modified entry will be commited.
+
+			break;
 		case 'unversioned':
 			passthru( "svn add $path" );
 
