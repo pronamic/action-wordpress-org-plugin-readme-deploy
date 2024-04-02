@@ -45,6 +45,7 @@ jobs:
         with:
           sparse-checkout: |
             .github
+            .wordpress-org
             readme.txt
 
       - name: Deploy
