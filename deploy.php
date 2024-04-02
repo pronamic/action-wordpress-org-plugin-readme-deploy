@@ -111,7 +111,7 @@ foreach ( $xml->target->entry as $entry ) {
  * 
  * @link https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
  */
-echo '::group::Fix downloading assets images issues 🏞️', PHP_EOL;
+echo '::group::Fix downloading assets images issue 🏞️', PHP_EOL;
 
 $mime_types = [
 	'png' => 'image/png',
