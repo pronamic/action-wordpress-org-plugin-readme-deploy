@@ -6,11 +6,7 @@ With this GitHub action you can easily update your WordPress plugin `readme.txt`
 
 ### Streamline your WordPress plugin updates
 
-This GitHub action simplifies updating your WordPress plugin's readme.txt file directly in the WordPress plugin directory.
-
-### Focus on what matters
-
-Unlike the popular `10up/action-wordpress-plugin-asset-update` GitHub action, this action targets a specific need: keeping your `readme.txt` up-to-date. This streamlined approach avoids unnecessary complexity.
+This GitHub action simplifies updating your WordPress plugin's `readme.txt` file directly in the WordPress plugin directory.
 
 ### Built for WordPress developers
 
