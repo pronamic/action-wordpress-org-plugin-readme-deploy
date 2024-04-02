@@ -111,6 +111,8 @@ foreach ( $xml->target->entry as $entry ) {
  * 
  * @link https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
  */
+echo '::group::Fix downloading assets images issues 🏞️', PHP_EOL;
+
 $mime_types = [
 	'png' => 'image/png',
 	'jpg' => 'image/jpeg',
@@ -123,6 +125,8 @@ foreach ( $mime_types as $ext => $type ) {
 		passthru( "svn propset svn:mime-type '$type' '$file'" );		
 	}
 }
+
+echo '::endgroup::', PHP_EOL;
 
 passthru( "svn commit --message 'Update readme.txt' --non-interactive --username '$svn_username' --password '$svn_password'" );
 
