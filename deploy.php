@@ -86,7 +86,7 @@ run_command( 'svn update assets' );
 if ( '' !== $stable_tag ) {
 	run_command( "svn update tags --depth=empty" );
 	run_command( "svn update tags/$stable_tag --depth=empty" );
-	run_command( "svn update tags/$stable_tag/readme.txt --depth=empty" );
+	run_command( "svn update tags/$stable_tag/readme.txt" );
 }
 
 end_group();
@@ -96,11 +96,10 @@ end_group();
  */
 start_group( '🔄 Synchronize' );
 
-copy( $readme_file, 'trunk/readme.txt' );
+run_command( "cp $readme_file trunk/readme.txt" );
 
 if ( '' !== $stable_tag ) {
-
-	copy( $readme_file, "tags/$stable_tag/readme.txt" );
+	run_command( "cp $readme_file tags/$stable_tag/readme.txt" );
 }
 
 if ( is_dir( $assets_dir ) ) {
@@ -114,7 +113,7 @@ end_group();
  */
 start_group( '💾 Subversion modifications' );
 
-$output = shell_exec( 'svn status --xml' );
+$output = run_command( 'svn status --xml' );
 
 $xml = simplexml_load_string( $output );
 
@@ -183,6 +182,10 @@ run_command( "svn commit --message 'Update readme.txt' --non-interactive --usern
 end_group();
 
 /**
- * Cleanup.
+ * Clean up.
  */
+start_group( '🗑️ Clean up' );
+
 run_command( "rm -f -R $svn_checkout_dir" );
+
+end_group();
