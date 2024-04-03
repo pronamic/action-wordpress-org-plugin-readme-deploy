@@ -65,6 +65,12 @@ jobs:
 - https://github.com/marketplace/actions/deploy-to-wordpress-org-svn-repository
   - https://github.com/richard-muvirimi/deploy-wordpress-plugin
 
+## Development
+
+```
+SVN_USERNAME=test SVN_PASSWORD=test WP_SLUG=salesfeed php deploy.php
+```
+
 ## Links
 
 - https://developer.wordpress.org/plugins/wordpress-org/how-your-readme-txt-works/

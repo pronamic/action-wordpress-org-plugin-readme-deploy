@@ -1,6 +1,29 @@
 <?php
 
 /**
+ * Functions.
+ */
+function escape_sequence( $code ) {
+	return "\e[" . $code . 'm';
+}
+
+function run_command( $command ) {
+	echo escape_sequence( '36' ), $command, escape_sequence( '0' ), PHP_EOL;
+
+	$output = shell_exec( $command );
+
+	return $output;
+}
+
+function start_group( $name ) {
+	echo '::group::', $name, PHP_EOL;
+}
+
+function end_group() {
+	echo '::endgroup::', PHP_EOL;
+}
+
+/**
  * Setup.
  */
 $svn_username = getenv( 'SVN_USERNAME' );
@@ -36,40 +59,60 @@ if ( 1 === preg_match( $pattern, $readme_content, $matches ) ) {
  */
 echo '🚀 Deploy readme.txt to WordPress.org', PHP_EOL;
 
-echo '- Subversion URL: ', $svn_url, PHP_EOL;
-echo '- Subversion username: ', $svn_username, PHP_EOL;
-echo '- Subversion password: ', $svn_password, PHP_EOL;
-echo '- Subversion checkout directory: ', $svn_checkout_dir, PHP_EOL;
-echo '- Path readme.txt: ', $readme_file, PHP_EOL;
-echo '- Path assets: ', $assets_dir, PHP_EOL;
-echo '- Stable tag: ', $stable_tag, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Subversion URL:', escape_sequence( '0' ), ' ', $svn_url, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Subversion username:', escape_sequence( '0' ), ' ', $svn_username, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Subversion password:', escape_sequence( '0' ), ' ', $svn_password, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Subversion checkout directory:', escape_sequence( '0' ), ' ', $svn_checkout_dir, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Path readme.txt:', escape_sequence( '0' ), ' ', $readme_file, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Path assets:', escape_sequence( '0' ), ' ', $assets_dir, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Stable tag:', escape_sequence( '0' ), ' ', $stable_tag, PHP_EOL;
+echo PHP_EOL;
 
 /**
  * Subversion.
  * 
  * @link https://stackoverflow.com/a/122291
  */
-passthru( "svn checkout $svn_url $svn_checkout_dir --depth empty" );
+start_group( '⬇ Subversion checkout WordPress.org' );
+
+run_command( "svn checkout $svn_url $svn_checkout_dir --depth empty" );
 
 chdir( $svn_checkout_dir );
 
-passthru( 'svn update trunk --depth=empty' );
-passthru( 'svn update trunk/readme.txt' );
-passthru( 'svn update assets' );
+run_command( 'svn update trunk --depth=empty' );
+run_command( 'svn update trunk/readme.txt' );
+run_command( 'svn update assets' );
 
-if ( is_dir( $assets_dir ) ) {
-	passthru( "rsync --recursive --checksum $assets_dir/ assets/ --delete --delete-excluded" );
+if ( '' !== $stable_tag ) {
+	run_command( "svn update tags --depth=empty" );
+	run_command( "svn update tags/$stable_tag --depth=empty" );
+	run_command( "svn update tags/$stable_tag/readme.txt --depth=empty" );
 }
+
+end_group();
+
+/**
+ * Synchronize.
+ */
+start_group( '🔄 Synchronize' );
 
 copy( $readme_file, 'trunk/readme.txt' );
 
 if ( '' !== $stable_tag ) {
-	passthru( "svn update tags --depth=empty" );
-	passthru( "svn update tags/$stable_tag --depth=empty" );
-	passthru( "svn update tags/$stable_tag/readme.txt --depth=empty" );
 
 	copy( $readme_file, "tags/$stable_tag/readme.txt" );
 }
+
+if ( is_dir( $assets_dir ) ) {
+	run_command( "rsync --recursive --checksum $assets_dir/ assets/ --delete --delete-excluded" );
+}
+
+end_group();
+
+/**
+ * Subversion modifications.
+ */
+start_group( '💾 Subversion modifications' );
 
 $output = shell_exec( 'svn status --xml' );
 
@@ -88,7 +131,7 @@ foreach ( $xml->target->entry as $entry ) {
 
 	switch ( $wc_status ) {
 		case 'missing':
-			passthru( "svn rm $path" );
+			run_command( "svn rm $path" );
 
 			break;
 		case 'modified';
@@ -96,7 +139,7 @@ foreach ( $xml->target->entry as $entry ) {
 
 			break;
 		case 'unversioned':
-			passthru( "svn add $path" );
+			run_command( "svn add $path" );
 
 			break;
 		default:
@@ -106,12 +149,14 @@ foreach ( $xml->target->entry as $entry ) {
 	}
 }
 
+end_group();
+
 /**
  * Fix screenshots getting force downloaded when clicking them.
  * 
  * @link https://developer.wordpress.org/plugins/wordpress-org/plugin-assets/
  */
-echo '::group::Fix downloading assets images issue 🏞️', PHP_EOL;
+start_group( '🐛 Fix downloading assets images issue' );
 
 $mime_types = [
 	'png' => 'image/png',
@@ -122,15 +167,22 @@ $mime_types = [
 
 foreach ( $mime_types as $ext => $type ) {
 	foreach ( glob( 'assets/*.' . $ext ) as $file ) {
-		passthru( "svn propset svn:mime-type '$type' '$file'" );		
+		run_command( "svn propset svn:mime-type '$type' '$file'" );
 	}
 }
 
-echo '::endgroup::', PHP_EOL;
+end_group();
 
-passthru( "svn commit --message 'Update readme.txt' --non-interactive --username '$svn_username' --password '$svn_password'" );
+/**
+ * Commit.
+ */
+start_group( '⬆ Subversion commit WordPress.org' );
+
+run_command( "svn commit --message 'Update readme.txt' --non-interactive --username '$svn_username' --password '$svn_password'" );
+
+end_group();
 
 /**
  * Cleanup.
  */
-passthru( "rm -f -R $svn_checkout_dir" );
+run_command( "rm -f -R $svn_checkout_dir" );
