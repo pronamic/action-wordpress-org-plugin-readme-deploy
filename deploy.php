@@ -77,6 +77,8 @@ start_group( '⬇ Subversion checkout WordPress.org' );
 
 run_command( "svn checkout $svn_url $svn_checkout_dir --depth empty" );
 
+run_command( "cd $svn_checkout_dir" );
+
 chdir( $svn_checkout_dir );
 
 run_command( 'svn update trunk --depth=empty' );
