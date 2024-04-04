@@ -1,9 +1,33 @@
 name: 'WordPress.org plugin `readme.txt` update'
 description: 'Deploy the `readme.txt` file to the WordPress plugin directory.'
 author: 'pronamic'
+
 branding:
   icon: 'upload-cloud'
   color: 'orange'
+
+inputs:
+  svn-username:
+    description: >
+      WordPress plugin directory Subversion username, remember your username is case sensitive.
+
+      https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
+    required: true
+  svn-password:
+    description: >
+      WordPress plugin directory Subversion password.
+
+      If you need to reset your password, go to [login.wordpress.org](https://login.wordpress.org/).
+
+      https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
+    required: true
+  wp-slug:
+    description: >
+      WordPress plugin slug.
+
+      https://developer.wordpress.org/plugins/wordpress-org/plugin-developer-faq/#what-will-my-plugin-permalink-slug-be
+    required: true
+
 runs:
   using: 'composite'
   steps:
