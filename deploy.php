@@ -41,7 +41,7 @@ function get_input( $name ) {
 function get_required_input( $name ) {
 	$value = get_input( $name );
 
-	if ( false === $value ) {
+	if ( false === $value || '' === $value ) {
 		echo escape_sequence( '31' ), escape_sequence( '1' ), 'Error:', escape_sequence( '0' ), ' ';
 		echo escape_sequence( '90' ), 'Input required and not supplied: ';
 		echo escape_sequence( '0' ), $name;
