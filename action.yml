@@ -34,7 +34,7 @@ runs:
     - id: deploy
       run: php ${{ github.action_path }}/deploy.php
       shell: bash
-      with:
-        svn-username: ${{ inputs.svn-username }}
-        svn-password: ${{ inputs.svn-password }}
-        wp-slug: ${{ inputs.wp-slug }}
+      env:
+        INPUT_SVN-USERNAME: ${{ inputs.svn-username }}
+        INPUT_SVN-PASSWORD: ${{ inputs.svn-password }}
+        INPUT_WP-SLUG: ${{ inputs.wp-slug }}
