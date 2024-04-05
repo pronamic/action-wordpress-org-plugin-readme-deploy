@@ -7,7 +7,7 @@ branding:
   color: 'orange'
 
 inputs:
-  svn-username:
+  svn_username:
     description: >
       WordPress plugin directory Subversion username, remember your username is case sensitive.
 
