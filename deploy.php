@@ -7,12 +7,22 @@ function escape_sequence( $code ) {
 	return "\e[" . $code . 'm';
 }
 
+function format_command( $value ) {
+	return escape_sequence( '36' ) . $value . escape_sequence( '0' );
+}
+
+function format_error( $value ) {
+	return escape_sequence( '31' ) . escape_sequence( '1' ) . 'Error:' . escape_sequence( '0' ) . ' ' . $value;
+}
+
 function run_command( $command ) {
-	echo escape_sequence( '36' ), $command, escape_sequence( '0' ), PHP_EOL;
+	echo format_command( $command ), PHP_EOL;
 
-	$output = shell_exec( $command );
+	passthru( $command, $result_code );
 
-	return $output;
+	if ( 0 !== $result_code ) {
+		exit( $result_code );
+	}
 }
 
 function start_group( $name ) {
@@ -42,9 +52,7 @@ function get_required_input( $name ) {
 	$value = get_input( $name );
 
 	if ( false === $value || '' === $value ) {
-		echo escape_sequence( '31' ), escape_sequence( '1' ), 'Error:', escape_sequence( '0' ), ' ';
-		echo escape_sequence( '90' ), 'Input required and not supplied: ';
-		echo escape_sequence( '0' ), $name;
+		echo format_error( escape_sequence( '90' ) . 'Input required and not supplied:' . escape_sequence( '0' ) ' ' . $name );
 
 		exit( 1 );
 	}
@@ -145,7 +153,9 @@ end_group();
  */
 start_group( '💾 Subversion modifications' );
 
-$output = run_command( 'svn status --xml' );
+echo format_command( 'svn status' ), PHP_EOL;
+
+$output = shell_exec( 'svn status --xml' );
 
 $xml = simplexml_load_string( $output );
 
