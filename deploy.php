@@ -42,8 +42,12 @@ function get_required_input( $name ) {
 	$value = get_input( $name );
 
 	if ( false === $value ) {
-		var_dump( $_ENV );
-		echo "Input required and not supplied: $name";
+		var_dump( $_SERVER );
+		var_dump( $ENV );
+		var_dump( getenv() );
+		echo escape_sequence( '31' ), escape_sequence( '1' ), 'Error:', escape_sequence( '0' ), ' ';
+		echo escape_sequence( '90' ), 'Input required and not supplied: ';
+		echo escape_sequence( '0' ), $name;
 
 		exit( 1 );
 	}
