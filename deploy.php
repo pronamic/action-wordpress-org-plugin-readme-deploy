@@ -52,7 +52,7 @@ function get_required_input( $name ) {
 	$value = get_input( $name );
 
 	if ( false === $value || '' === $value ) {
-		echo format_error( escape_sequence( '90' ) . 'Input required and not supplied:' . escape_sequence( '0' ) ' ' . $name );
+		echo format_error( escape_sequence( '90' ) . 'Input required and not supplied:' . escape_sequence( '0' ) . ' ' . $name );
 
 		exit( 1 );
 	}
