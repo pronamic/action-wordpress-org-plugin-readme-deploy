@@ -42,6 +42,7 @@ function get_required_input( $name ) {
 	$value = get_input( $name );
 
 	if ( false === $value ) {
+		var_dump( $_ENV );
 		echo "Input required and not supplied: $name";
 
 		exit( 1 );
