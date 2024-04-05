@@ -42,7 +42,7 @@ function get_required_input( $name ) {
 	$value = get_input( $name );
 
 	if ( false === $value ) {
-		echo run_command( '$INPUT_SVN_USERNAME' );
+		echo run_command( 'echo $INPUT_SVN_USERNAME' );
 		var_dump( $_SERVER );
 		var_dump( $ENV );
 		var_dump( getenv() );
