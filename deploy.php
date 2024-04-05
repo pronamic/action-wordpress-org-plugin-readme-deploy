@@ -59,7 +59,7 @@ function get_required_input( $name ) {
 /**
  * Setup.
  */
-$svn_username = get_required_input( 'svn_username' );
+$svn_username = get_required_input( 'svn-username' );
 $svn_password = get_required_input( 'svn-password' );
 $wp_slug      = get_required_input( 'wp-slug' );
 
