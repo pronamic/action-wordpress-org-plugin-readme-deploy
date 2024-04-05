@@ -24,11 +24,38 @@ function end_group() {
 }
 
 /**
+ * Get input.
+ * 
+ * @link https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#inputs
+ * @link https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepswith
+ * @link https://github.com/actions/checkout/blob/cd7d8d697e10461458bc61a30d094dc601a8b017/dist/index.js#L2699-L2717
+ * @param string $name
+ * @return string|array|false
+ */
+function get_input( $name ) {
+	$env_name = 'INPUT_' . strtoupper( $name );
+
+	return getenv( $env_name );
+}
+
+function get_required_input( $name ) {
+	$value = get_input( $name );
+
+	if ( false === $value ) {
+		echo "Input required and not supplied: $name";
+
+		exit( 1 );
+	}
+
+	return $value;
+}
+
+/**
  * Setup.
  */
-$svn_username = getenv( 'SVN_USERNAME' );
-$svn_password = getenv( 'SVN_PASSWORD' );
-$wp_slug      = getenv( 'WP_SLUG' );
+$svn_username = get_required_input( 'svn-username' );
+$svn_password = get_required_input( 'svn-password' );
+$wp_slug      = get_required_input( 'wp-slug' );
 
 $svn_url = "https://plugins.svn.wordpress.org/$wp_slug";
 
@@ -57,7 +84,7 @@ if ( 1 === preg_match( $pattern, $readme_content, $matches ) ) {
 /**
  * Start.
  */
-echo '🚀 Deploy readme.txt to WordPress.org', PHP_EOL;
+start_group( 'ℹ️ Deploy readme.txt to WordPress.org' );
 
 echo '• ', escape_sequence( '1' ), 'Subversion URL:', escape_sequence( '0' ), ' ', $svn_url, PHP_EOL;
 echo '• ', escape_sequence( '1' ), 'Subversion username:', escape_sequence( '0' ), ' ', $svn_username, PHP_EOL;
@@ -66,7 +93,8 @@ echo '• ', escape_sequence( '1' ), 'Subversion checkout directory:', escape_se
 echo '• ', escape_sequence( '1' ), 'Path readme.txt:', escape_sequence( '0' ), ' ', $readme_file, PHP_EOL;
 echo '• ', escape_sequence( '1' ), 'Path assets:', escape_sequence( '0' ), ' ', $assets_dir, PHP_EOL;
 echo '• ', escape_sequence( '1' ), 'Stable tag:', escape_sequence( '0' ), ' ', $stable_tag, PHP_EOL;
-echo PHP_EOL;
+
+end_group();
 
 /**
  * Subversion.
