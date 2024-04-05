@@ -12,17 +12,6 @@ This GitHub action simplifies updating your WordPress plugin's `readme.txt` file
 
 Leveraging PHP instead of bash scripting, this action caters to the preferences of many WordPress developers, offering a familiar and potentially more convenient workflow.
 
-## Configuration
-
-### Environment variables
-
-| Variable       | Explanation                |
-| -------------- | -------------------------- |
-| `SVN_USERNAME` | WordPress.org username.    |
-| `SVN_PASSWORD` | WordPress.org password.    |
-| `WP_SLUG`      | WordPress.org plugin slug. |
-
-
 ## Example
 
 ```yml
@@ -50,10 +39,10 @@ jobs:
 
       - name: Deploy
         uses: pronamic/action-wordpress-plugin-readme-update@main
-        env:
-          SVN_USERNAME: pronamic
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          WP_SLUG: pronamic-pay-with-mollie-for-contact-form-7
+        with:
+          svn-username: pronamic
+          svn-password: ${{ secrets.SVN_PASSWORD }}
+          wp-slug: pronamic-pay-with-mollie-for-contact-form-7
 ```
 
 ## Inspiration
