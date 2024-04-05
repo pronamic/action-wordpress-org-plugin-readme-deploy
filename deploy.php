@@ -153,7 +153,7 @@ end_group();
  */
 start_group( '💾 Subversion modifications' );
 
-echo format_command( 'svn status' ), PHP_EOL;
+run_command( 'svn status' );
 
 $output = shell_exec( 'svn status --xml' );
 
