@@ -1,12 +1,12 @@
-# Github action WordPress.org `readme.txt` update
+# Github action WordPress.org `readme.txt` deploy
 
-With this GitHub action you can easily update your WordPress plugin `readme.txt` file in the WordPress plugin directory.
+With this GitHub action you can easily deploy your WordPress plugin `readme.txt` file in the WordPress plugin directory.
 
 ## Introduction
 
 ### Streamline your WordPress plugin updates
 
-This GitHub action simplifies updating your WordPress plugin's `readme.txt` file directly in the WordPress plugin directory.
+This GitHub action simplifies deploying your WordPress plugin's `readme.txt` file directly in the WordPress plugin directory.
 
 ### Built for WordPress developers
 
