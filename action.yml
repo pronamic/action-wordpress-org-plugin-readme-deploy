@@ -7,13 +7,13 @@ branding:
   color: 'orange'
 
 inputs:
-  svn-username:
+  username:
     description: >
       WordPress plugin directory Subversion username, remember your username is case sensitive.
 
       https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
     required: true
-  svn-password:
+  password:
     description: >
       WordPress plugin directory Subversion password.
 
@@ -21,7 +21,7 @@ inputs:
 
       https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/
     required: true
-  wp-slug:
+  slug:
     description: >
       WordPress plugin slug.
 
@@ -35,6 +35,6 @@ runs:
       run: php ${{ github.action_path }}/deploy.php
       shell: bash
       env:
-        INPUT_SVN-USERNAME: ${{ inputs.svn-username }}
-        INPUT_SVN-PASSWORD: ${{ inputs.svn-password }}
-        INPUT_WP-SLUG: ${{ inputs.wp-slug }}
+        INPUT_USERNAME: ${{ inputs.username }}
+        INPUT_PASSWORD: ${{ inputs.password }}
+        INPUT_SLUG: ${{ inputs.slug }}
