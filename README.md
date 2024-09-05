@@ -4,7 +4,7 @@ With this GitHub action you can easily deploy your WordPress plugin `readme.txt`
 
 ## Introduction
 
-### Streamline your WordPress plugin updates
+### Streamline your WordPress plugin deployment
 
 This GitHub action simplifies deploying your WordPress plugin's `readme.txt` file directly in the WordPress plugin directory.
 
