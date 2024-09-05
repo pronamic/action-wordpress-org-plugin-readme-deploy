@@ -63,11 +63,12 @@ function get_required_input( $name ) {
 /**
  * Setup.
  */
-$svn_username = get_required_input( 'svn-username' );
-$svn_password = get_required_input( 'svn-password' );
-$wp_slug      = get_required_input( 'wp-slug' );
+$username = get_required_input( 'username' );
+$password = get_required_input( 'password' );
 
-$svn_url = "https://plugins.svn.wordpress.org/$wp_slug";
+$slug = get_required_input( 'slug' );
+
+$svn_url = "https://plugins.svn.wordpress.org/$slug";
 
 $readme_file = getcwd() . '/readme.txt';
 $assets_dir  = getcwd() . '/.wordpress-org';
@@ -97,8 +98,8 @@ if ( 1 === preg_match( $pattern, $readme_content, $matches ) ) {
 start_group( 'ℹ️ Deploy readme.txt to WordPress.org' );
 
 echo '• ', escape_sequence( '1' ), 'Subversion URL:', escape_sequence( '0' ), ' ', $svn_url, PHP_EOL;
-echo '• ', escape_sequence( '1' ), 'Subversion username:', escape_sequence( '0' ), ' ', $svn_username, PHP_EOL;
-echo '• ', escape_sequence( '1' ), 'Subversion password:', escape_sequence( '0' ), ' ', $svn_password, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Subversion username:', escape_sequence( '0' ), ' ', $username, PHP_EOL;
+echo '• ', escape_sequence( '1' ), 'Subversion password:', escape_sequence( '0' ), ' ', $password, PHP_EOL;
 echo '• ', escape_sequence( '1' ), 'Subversion checkout directory:', escape_sequence( '0' ), ' ', $svn_checkout_dir, PHP_EOL;
 echo '• ', escape_sequence( '1' ), 'Path readme.txt:', escape_sequence( '0' ), ' ', $readme_file, PHP_EOL;
 echo '• ', escape_sequence( '1' ), 'Path assets:', escape_sequence( '0' ), ' ', $assets_dir, PHP_EOL;
@@ -219,7 +220,7 @@ end_group();
  */
 start_group( '⬆ Subversion commit WordPress.org' );
 
-run_command( "svn commit --message 'Update readme.txt' --non-interactive --username '$svn_username' --password '$svn_password'" );
+run_command( "svn commit --message 'Update readme.txt' --non-interactive --username '$username' --password '$password'" );
 
 end_group();
 
