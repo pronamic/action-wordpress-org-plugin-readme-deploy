@@ -40,9 +40,9 @@ jobs:
       - name: Deploy
         uses: pronamic/action-wordpress-plugin-readme-update@main
         with:
-          svn-username: pronamic
-          svn-password: ${{ secrets.SVN_PASSWORD }}
-          wp-slug: pronamic-pay-with-mollie-for-contact-form-7
+          username: pronamic
+          password: ${{ secrets.SVN_PASSWORD }}
+          slug: pronamic-pay-with-mollie-for-contact-form-7
 ```
 
 ## Inspiration
